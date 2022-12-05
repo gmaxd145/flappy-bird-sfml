@@ -5,7 +5,6 @@ void AssetManager::loadTexture(const std::string &name, const std::string &fileN
     sf::Texture texture;
     if(texture.loadFromFile(fileName))
     {
-//        _textures.insert({name, t})
         _textures[name] = texture;
     }
 }
@@ -21,7 +20,6 @@ void AssetManager::loadFont(const std::string &name, const std::string &fileName
     sf::Font font ;
     if(font.loadFromFile(fileName))
     {
-//        _fonts.insert({name, t})
         _fonts[name] = font;
     }
 }

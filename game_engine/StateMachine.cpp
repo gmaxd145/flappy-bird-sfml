@@ -19,10 +19,10 @@ void StateMachine::processStateChanges()
     {
         _states.pop();
 
-//        if (!_states.empty())
-//        {
-//            _states.top->resume();
-//        }
+        if (!_states.empty())
+        {
+            _states.top()->resume();
+        }
 
         _isRemoving = false;
     }
@@ -47,7 +47,7 @@ void StateMachine::processStateChanges()
     }
 }
 
-statePtr& StateMachine::getState()
+statePtr& StateMachine::getActiveState()
 {
     return _states.top();
 }

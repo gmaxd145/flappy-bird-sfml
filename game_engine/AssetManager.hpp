@@ -1,9 +1,8 @@
-//TODO: UnloadTexture method: to unload the texture when we move to a new state or we don't require it
+//TODO: UnloadTexture method: to unload the texture when we move to a new state ili we don't require it
 
 #pragma once
 
 #include <SFML/Graphics.hpp>
-
 #include <map>
 
 class AssetManager

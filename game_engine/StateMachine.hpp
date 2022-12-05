@@ -5,11 +5,6 @@
 #include <memory>
 #include <stack>
 
-//namespace Test
-//{
-//
-//}
-
 typedef std::unique_ptr<State> statePtr;
 
 class StateMachine
@@ -23,7 +18,7 @@ public:
 
     void processStateChanges();
 
-    statePtr& getState(); //getActiveState
+    statePtr& getActiveState();
 
 private:
     std::stack<statePtr> _states;
