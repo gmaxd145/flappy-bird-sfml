@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../game_engine/State.hpp"
-#include "../../game_engine/Game.hpp"
+#include "../GameEngine/State.hpp"
+#include "../GameEngine/Game.hpp"
 #include <SFML/Graphics.hpp>
 
 class MenuState : public State

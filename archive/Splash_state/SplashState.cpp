@@ -1,6 +1,6 @@
 #include "SplashState.hpp"
 #include "../Menu_state/MenuState.hpp"
-#include "../../Definitions.hpp"
+#include "../../src/Definitions.hpp"
 #include <iostream>
 
 SplashState::SplashState(gameDataPtr gameData) : _gameData(gameData)

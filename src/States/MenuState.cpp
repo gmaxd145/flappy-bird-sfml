@@ -1,12 +1,11 @@
 #include "MenuState.hpp"
-#include "../../Definitions.hpp"
-#include <iostream>
+#include "../Definitions.hpp"
 
 MenuState::MenuState(gameDataPtr gameData) : _gameData(gameData)
 {
 }
 
-// maybe rework this
+// maybe move init body to draw and remove init
 void MenuState::init()
 {
     // maybe rework assetManager
@@ -29,6 +28,12 @@ void MenuState::handleInput()
         {
             _gameData->window.close();
         }
+
+        if (_gameData->inputManager.isSpriteClicked(_playButtonSprite, sf::Mouse::Left,
+                                                    _gameData->window))
+        {
+            // Go to game screen
+        }
     }
 }
 
@@ -47,7 +52,7 @@ void MenuState::draw(float dt)
     _titleSprite.setPosition((SCREEN_WIDTH / 2) - (_titleSprite.getGlobalBounds().width / 2),
                              _titleSprite.getGlobalBounds().height / 2);
     _playButtonSprite.setPosition((SCREEN_WIDTH / 2) - (_playButtonSprite.getGlobalBounds().width / 2),
-                            (SCREEN_HEIGHT / 2) - (_playButtonSprite.getGlobalBounds().height / 2));
+                                  (SCREEN_HEIGHT / 2) - (_playButtonSprite.getGlobalBounds().height / 2));
 
     _gameData->window.display();
 }

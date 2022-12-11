@@ -1,6 +1,6 @@
 #include "Game.hpp"
 //#include "../States/Splash_state/SplashState.hpp"
-#include "../States/Menu_state/MenuState.hpp"
+#include "../States/MenuState.hpp"
 
 
 Game::Game(int width, int height, const std::string &title)
