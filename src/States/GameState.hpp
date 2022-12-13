@@ -2,12 +2,13 @@
 
 #include "../GameEngine/State.hpp"
 #include "../GameEngine/Game.hpp"
+#include "../Pipes.hpp"
 #include <SFML/Graphics.hpp>
 
-class MenuState : public State
+class GameState : public State
 {
 public:
-    MenuState(gameDataPtr gameData);
+    GameState(gameDataPtr gameData);
 
     void init() final;
 
@@ -19,6 +20,7 @@ private:
     gameDataPtr _gameData;
 
     sf::Sprite _backgroundSprite;
-    sf::Sprite _titleSprite;
-    sf::Sprite _playButtonSprite;
+
+    std::unique_ptr<Pipes> _pipesPtr;
+    sf::Clock _clock;
 };

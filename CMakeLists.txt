@@ -5,7 +5,7 @@ project(${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 17)
 
 file(GLOB source_files
-        "src/main.cpp"
+        "src/*.cpp"
         "src/GameEngine/*.cpp"
         "src/States/*.cpp"
         )

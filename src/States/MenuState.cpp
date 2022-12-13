@@ -1,19 +1,20 @@
 #include "MenuState.hpp"
+#include "GameState.hpp"
 #include "../Definitions.hpp"
 
 MenuState::MenuState(gameDataPtr gameData) : _gameData(gameData)
 {
 }
 
-// maybe move init body to draw and remove init
+// maybe move init body to constructor and remove init
 void MenuState::init()
 {
     // maybe rework assetManager
-    _gameData->assetManager.loadTexture("Main menu background", MAIN_MENU_BACKGROUND_FILEPATH);
+    _gameData->assetManager.loadTexture("Background", BACKGROUND_FILEPATH);
     _gameData->assetManager.loadTexture("Game title",GAME_TITLE_FILEPATH);
     _gameData->assetManager.loadTexture("Play button", PLAY_BUTTON_FILEPATH);
 
-    _backgroundSprite.setTexture(_gameData->assetManager.getTexture("Main menu background"));
+    _backgroundSprite.setTexture(_gameData->assetManager.getTexture("Background"));
     _titleSprite.setTexture(_gameData->assetManager.getTexture("Game title"));
     _playButtonSprite.setTexture(_gameData->assetManager.getTexture("Play button"));
 }
@@ -32,7 +33,7 @@ void MenuState::handleInput()
         if (_gameData->inputManager.isSpriteClicked(_playButtonSprite, sf::Mouse::Left,
                                                     _gameData->window))
         {
-            // Go to game screen
+            _gameData->stateMachine.addState(statePtr(new GameState(_gameData)));
         }
     }
 }
