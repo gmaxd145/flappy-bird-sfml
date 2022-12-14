@@ -9,8 +9,6 @@ class MenuState : public State
 public:
     MenuState(gameDataPtr gameData);
 
-    void init() final;
-
     void handleInput() final;
     void update(float dt) final;
     void draw(float dt) final;

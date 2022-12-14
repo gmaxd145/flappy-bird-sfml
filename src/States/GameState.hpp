@@ -3,14 +3,13 @@
 #include "../GameEngine/State.hpp"
 #include "../GameEngine/Game.hpp"
 #include "../Pipes.hpp"
+#include "../Land.hpp"
 #include <SFML/Graphics.hpp>
 
 class GameState : public State
 {
 public:
-    GameState(gameDataPtr gameData);
-
-    void init() final;
+    GameState(const gameDataPtr& gameData);
 
     void handleInput() final;
     void update(float dt) final;
@@ -21,6 +20,8 @@ private:
 
     sf::Sprite _backgroundSprite;
 
-    std::unique_ptr<Pipes> _pipesPtr;
+    Land _land;
+
+    Pipes _pipes;
     sf::Clock _clock;
 };

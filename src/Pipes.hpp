@@ -9,15 +9,17 @@ class Pipes
 public:
     Pipes(gameDataPtr gameData);
 
-    void spawnUpperPipe();
-    void spawnBottomPipe();
-    // ?
+    void spawn();
 //    void spawnInvisiblePipe();
-    void movePipes(float dt);
-    void drawPipes();
+    void move(float dt);
+    void draw();
+    void randPipeOffset();
 
 private:
     gameDataPtr _gameData;
 
     std::vector<sf::Sprite> _pipesSprites;
+
+    int _landHeight;
+    int _pipeSpawnYOffset;
 };

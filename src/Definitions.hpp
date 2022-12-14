@@ -17,4 +17,6 @@
 #define PIPE_MOVEMENT_SPEED 200
 #define PIPE_SPAWN_FREQUENCY 1.5
 
+#define LAND_MOVEMENT_SPEED 200
+
 #define LAND_FILEPATH "data/resources/land.png"

@@ -42,7 +42,6 @@ void StateMachine::processStateChanges()
         }
 
         _states.push(std::move(_newState));
-        _states.top()->init();
         _isAdding = false;
     }
 }

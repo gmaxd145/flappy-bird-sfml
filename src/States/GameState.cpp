@@ -1,21 +1,9 @@
 #include "GameState.hpp"
 #include "../Definitions.hpp"
-#include "../Pipes.hpp"
 
-GameState::GameState(gameDataPtr gameData) : _gameData(gameData)
+GameState::GameState(const gameDataPtr& gameData) : _gameData(gameData), _pipes(gameData), _land(gameData)
 {
-}
-
-// maybe move init body to constructor and remove init
-void GameState::init()
-{
-    // maybe rework assetManager
     _gameData->assetManager.loadTexture("Background", BACKGROUND_FILEPATH);
-
-    _gameData->assetManager.loadTexture("Upper pipe", UPPER_PIPE_FILEPATH);
-    _gameData->assetManager.loadTexture("Bottom pipe", BOTTOM_PIPE_FILEPATH);
-
-    _pipesPtr = std::make_unique<Pipes>(_gameData);
 
     _backgroundSprite.setTexture(_gameData->assetManager.getTexture("Background"));
 }
@@ -33,6 +21,7 @@ void GameState::handleInput()
         if (_gameData->inputManager.isSpriteClicked(_backgroundSprite, sf::Mouse::Left,
                                                     _gameData->window))
         {
+            // bird jump
         }
     }
 }
@@ -41,21 +30,22 @@ void GameState::update(float dt)
 {
     if (_clock.getElapsedTime().asSeconds() > PIPE_SPAWN_FREQUENCY)
     {
-//        _pipesPtr->spawnInvisiblePipe();
-        _pipesPtr->spawnBottomPipe();
-        _pipesPtr->spawnUpperPipe();
+        _pipes.randPipeOffset();
+        _pipes.spawn();
         _clock.restart();
     }
-    _pipesPtr->movePipes(dt);
+    _pipes.move(dt);
+
+    _land.move(dt);
 }
 
 void GameState::draw(float dt)
 {
-    _gameData->window.clear( sf::Color::Red );
+    _gameData->window.clear();
 
     _gameData->window.draw(_backgroundSprite);
-
-    _pipesPtr->drawPipes();
+    _pipes.draw();
+    _land.draw();
 
     _gameData->window.display();
 }

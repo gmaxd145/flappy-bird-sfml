@@ -4,12 +4,6 @@
 
 MenuState::MenuState(gameDataPtr gameData) : _gameData(gameData)
 {
-}
-
-// maybe move init body to constructor and remove init
-void MenuState::init()
-{
-    // maybe rework assetManager
     _gameData->assetManager.loadTexture("Background", BACKGROUND_FILEPATH);
     _gameData->assetManager.loadTexture("Game title",GAME_TITLE_FILEPATH);
     _gameData->assetManager.loadTexture("Play button", PLAY_BUTTON_FILEPATH);
