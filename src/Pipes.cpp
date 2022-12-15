@@ -3,16 +3,12 @@
 #include <algorithm>
 #include <ctime>
 
-
-//don’t need to call function SpawnInvisiblePipe(), just solve issue in function MovePipes, use 2 loops instead of 1,
-// first loop for move, second loop for erase the pipe which is out of width of window.
-// Don’t just use 1 loop for erase and move, that leads to problem
-
 Pipes::Pipes(gameDataPtr gameData) : _gameData(gameData),
                                      _landHeight(_gameData->assetManager.getTexture("Land").getSize().y)
 {
     _gameData->assetManager.loadTexture("Upper pipe", UPPER_PIPE_FILEPATH);
     _gameData->assetManager.loadTexture("Bottom pipe", BOTTOM_PIPE_FILEPATH);
+    _gameData->assetManager.loadTexture("Scoring pipe", SCORING_PIPE_FILEPATH);
 
     srand(time(NULL));
 }
@@ -27,17 +23,11 @@ void Pipes::spawn()
     bottomPipeSprite.setPosition(_gameData->window.getSize().x,
                                 _gameData->window.getSize().y - bottomPipeSprite.getGlobalBounds().height - _pipeSpawnYOffset);
     _pipesSprites.push_back(bottomPipeSprite);
+
+    sf::Sprite scoringPipe(_gameData->assetManager.getTexture("Scoring pipe"));
+    scoringPipe.setPosition(_gameData->window.getSize().x + (upperPipeSprite.getGlobalBounds().width * 2),0);
+    _scorPipesSprites.push_back(scoringPipe);
 }
-
-//void Pipes::spawnInvisiblePipe()
-//{
-//    sf::Sprite sprite(_gameData->assetManager.getTexture("Upper pipe"));
-//    sprite.setPosition(_gameData->window.getSize().x,
-//                       _gameData->window.getSize().y - sprite.getGlobalBounds().height);
-//    sprite.setColor(sf::Color(0, 0, 0, 0));
-//    _pipesSprites.push_back(sprite);
-//}
-
 void Pipes::move(float dt)
 {
     float movement = PIPE_MOVEMENT_SPEED * dt;
@@ -54,6 +44,19 @@ void Pipes::move(float dt)
             (*pipesSpritesIt).move(-movement, 0);
         }
     }
+    for (auto scoringPipesScriptes = _scorPipesSprites.begin();
+         scoringPipesScriptes != _scorPipesSprites.end();
+         ++scoringPipesScriptes)
+    {
+        if ((*scoringPipesScriptes).getPosition().x + (*scoringPipesScriptes).getGlobalBounds().width < 0)
+        {
+            _scorPipesSprites.erase(_scorPipesSprites.begin(), scoringPipesScriptes);
+        }
+        else
+        {
+            (*scoringPipesScriptes).move(-movement, 0);
+        }
+    }
 }
 
 void Pipes::draw()
@@ -62,9 +65,18 @@ void Pipes::draw()
     {
         _gameData->window.draw(pipeSprite);
     }
+    for (auto& scoringPipeSprite : _scorPipesSprites)
+    {
+        _gameData->window.draw(scoringPipeSprite);
+    }
 }
 
 void Pipes::randPipeOffset()
 {
     _pipeSpawnYOffset = std::rand() % (_landHeight + 1);
+}
+
+const std::vector<sf::Sprite>& Pipes::getSprites() const
+{
+    return _pipesSprites;
 }

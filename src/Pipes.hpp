@@ -10,10 +10,13 @@ public:
     Pipes(gameDataPtr gameData);
 
     void spawn();
-//    void spawnInvisiblePipe();
     void move(float dt);
     void draw();
     void randPipeOffset();
+
+    const std::vector<sf::Sprite>& getSprites() const;
+
+    std::vector<sf::Sprite> _scorPipesSprites;
 
 private:
     gameDataPtr _gameData;

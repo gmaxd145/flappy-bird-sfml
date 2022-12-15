@@ -10,9 +10,6 @@ typedef std::unique_ptr<State> statePtr;
 class StateMachine
 {
 public:
-//    StateMachine() {};
-//    ~StateMachine() {};
-
     void addState(statePtr newState, bool isReplacing = true);
     void removeState();
 
