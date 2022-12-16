@@ -27,7 +27,6 @@ void MenuState::handleInput()
         if (_gameData->inputManager.isSpriteClicked(_playButtonSprite, sf::Mouse::Left,
                                                     _gameData->window))
         {
-            // ?
             _gameData->stateMachine.addState(statePtr(new GameState(_gameData)), true);
         }
     }

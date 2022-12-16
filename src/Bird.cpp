@@ -46,6 +46,10 @@ void Bird::animate()
 
 void Bird::update(float dt)
 {
+    if (_birdSprite.getPosition().y < 0 + _birdSprite.getGlobalBounds().height)
+    {
+        _birdState = BirdStates::falling;
+    }
     switch (_birdState)
     {
         case BirdStates::falling:
@@ -75,7 +79,6 @@ void Bird::update(float dt)
     {
         _birdState = BirdStates::falling;
         _moveClock.restart();
-
     }
 }
 

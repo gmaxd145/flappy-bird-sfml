@@ -9,7 +9,6 @@ enum GameStates
 
 enum BirdStates
 {
-//    still,
     falling,
     flying
 };
@@ -38,7 +37,7 @@ enum BirdStates
 
 #define BIRD_TIME_BETWEEN_FRAMES 0.1
 
-#define GRAVITY 600
+#define GRAVITY 500
 
 #define BIRD_FLYING_SPEED 400
 #define BIRD_FLYING_DURATION 0.25
@@ -46,5 +45,6 @@ enum BirdStates
 
 #define FLAPPY_FONT_FILEPATH "data/fonts/FlappyFont.ttf"
 
-#define GAME_OVER_BODY_FILEPATH "data/resources/Game-Over_Body.png"
-#define GAME_OVER_TITLE_FILEPATH "data/resources/Game-Over_Title.png"
+#define GAME_OVER_BODY_FILEPATH "data/resources/Game-Over-Body.png"
+//#define GAME_OVER_BODY_FILEPATH "game_over_body_without_medal.png"
+#define GAME_OVER_TITLE_FILEPATH "data/resources/Game-Over-Title.png"

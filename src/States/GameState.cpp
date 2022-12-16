@@ -1,16 +1,15 @@
+#include <fstream>
 #include "GameState.hpp"
 #include "../Definitions.hpp"
+#include "GameOverState.hpp"
+#include "filesystem"
 
 bool checkSpritesCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2)
 {
     sf::Rect<float> rect1(sprite1.getGlobalBounds());
     sf::Rect<float> rect2(sprite2.getGlobalBounds());
 
-    if (rect1.intersects(rect2))
-    {
-        return true;
-    }
-    return false;
+    return rect1.intersects(rect2);
 }
 
 //bool checkSpritesCollision(const sf::Sprite& sprite1, const std::vector<sf::Sprite>& sprites)
@@ -19,7 +18,6 @@ bool checkSpritesCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2)
 //    {
 //        return checkSpritesCollision(sprite1, sprite2);
 //    }
-//
 //}
 
 GameState::GameState(const gameDataPtr& gameData) : _gameData(gameData), _pipes(gameData), _land(gameData),
@@ -67,7 +65,7 @@ void GameState::update(float dt)
         _bird.update(dt);
     }
 
-    //    if (checkSpritesCollision(_bird.getSprite(), _land.getSprites())
+//    if (checkSpritesCollision(_bird.getSprite(), _land.getSprites())
 //        ||
 //        checkSpritesCollision(_bird.getSprite(), _pipes.getSprites()))
 //    {
@@ -90,21 +88,50 @@ void GameState::update(float dt)
         }
     }
 
-    for (auto scorePipeSpriteIt = _pipes._scorPipesSprites.begin();
-         scorePipeSpriteIt != _pipes._scorPipesSprites.end();
-        ++scorePipeSpriteIt)
+//    for (auto scorePipeSpriteIt = _pipes._scorPipesSprites.begin();
+//         scorePipeSpriteIt != _pipes._scorPipesSprites.end();
+//        ++scorePipeSpriteIt)
+//    {
+//        if (checkSpritesCollision(_bird.getSprite(), (*scorePipeSpriteIt)))
+//        {
+//            _pipes._scorPipesSprites.erase(scorePipeSpriteIt);
+//            _hud.updateScore(++_score);
+//        }
+//    }
+
+    const auto& scorPipesSprites = _pipes.getScoreSprites();
+    for (auto scorePipeSpriteIt = scorPipesSprites.begin();
+         scorePipeSpriteIt != scorPipesSprites.end();
+         ++scorePipeSpriteIt)
     {
         if (checkSpritesCollision(_bird.getSprite(), (*scorePipeSpriteIt)))
         {
-            _pipes._scorPipesSprites.erase(scorePipeSpriteIt);
+            _pipes.deleteScorePipe(scorePipeSpriteIt - scorPipesSprites.begin());
             _hud.updateScore(++_score);
         }
     }
 
+
+
     if (_gameState == GameStates::gameOver)
     {
-        // ?
-        _gameData->stateMachine.addState(statePtr(new GameOverState(_gamedata)), true);
+        std::string filepath = std::filesystem::current_path().string();
+        filepath.erase(filepath.find("cmake-build-debug"), filepath.size());
+        std::fstream file(filepath + "data/Highscore.txt");
+        if (!file.is_open())
+        {
+            throw std::runtime_error("Can not open highscore file.");
+        }
+        int temp{};
+        file >> temp;
+        if (_score > temp)
+        {
+            file.seekg(std::ios::beg);
+            file << _score;
+        };
+
+        _gameData->stateMachine.addState(statePtr(new GameOverState(_gameData, _score)),
+                                         true);
     }
 }
 

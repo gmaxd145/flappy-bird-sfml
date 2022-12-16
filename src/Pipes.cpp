@@ -3,8 +3,7 @@
 #include <algorithm>
 #include <ctime>
 
-Pipes::Pipes(gameDataPtr gameData) : _gameData(gameData),
-                                     _landHeight(_gameData->assetManager.getTexture("Land").getSize().y)
+Pipes::Pipes(gameDataPtr gameData) : _gameData(gameData)
 {
     _gameData->assetManager.loadTexture("Upper pipe", UPPER_PIPE_FILEPATH);
     _gameData->assetManager.loadTexture("Bottom pipe", BOTTOM_PIPE_FILEPATH);
@@ -73,10 +72,21 @@ void Pipes::draw()
 
 void Pipes::randPipeOffset()
 {
-    _pipeSpawnYOffset = std::rand() % (_landHeight + 1);
+    auto landHeight = _gameData->assetManager.getTexture("Land").getSize().y;
+    _pipeSpawnYOffset = std::rand() % (landHeight + 1);
 }
 
 const std::vector<sf::Sprite>& Pipes::getSprites() const
 {
     return _pipesSprites;
+}
+
+const std::vector<sf::Sprite>& Pipes::getScoreSprites() const
+{
+    return _scorPipesSprites;
+}
+
+void Pipes::deleteScorePipe(int index)
+{
+    _scorPipesSprites.erase(_scorPipesSprites.begin() + index);
 }

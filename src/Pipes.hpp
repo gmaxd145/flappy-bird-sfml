@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vector>
 #include "GameEngine/Game.hpp"
 #include "SFML/Graphics.hpp"
+#include <vector>
 
 class Pipes
 {
@@ -16,13 +16,15 @@ public:
 
     const std::vector<sf::Sprite>& getSprites() const;
 
-    std::vector<sf::Sprite> _scorPipesSprites;
+    const std::vector<sf::Sprite>& getScoreSprites() const;
+    void deleteScorePipe(int index);
 
 private:
     gameDataPtr _gameData;
 
     std::vector<sf::Sprite> _pipesSprites;
 
-    int _landHeight;
+    std::vector<sf::Sprite> _scorPipesSprites;
+
     int _pipeSpawnYOffset;
 };
