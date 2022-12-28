@@ -45,6 +45,6 @@ enum BirdStates
 
 #define FLAPPY_FONT_FILEPATH "data/fonts/FlappyFont.ttf"
 
-#define GAME_OVER_BODY_FILEPATH "data/resources/Game-Over-Body.png"
-//#define GAME_OVER_BODY_FILEPATH "game_over_body_without_medal.png"
+//#define GAME_OVER_BODY_FILEPATH "data/resources/Game-Over-Body.png"
+#define GAME_OVER_BODY_FILEPATH "data/resources/game_over_body_without_medal.png"
 #define GAME_OVER_TITLE_FILEPATH "data/resources/Game-Over-Title.png"

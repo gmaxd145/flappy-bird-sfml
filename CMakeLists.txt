@@ -12,7 +12,7 @@ file(GLOB source_files
 
 set(SOURCES ${source_files})
 
-find_package(SFML 2 REQUIRED COMPONENTS graphics window system)
+find_package(SFML 2 REQUIRED COMPONENTS graphics window  system)
 
 
 add_executable(${PROJECT_NAME} ${SOURCES})
