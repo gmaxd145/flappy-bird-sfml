@@ -26,6 +26,19 @@ GameState::GameState(const gameDataPtr& gameData) : _gameData(gameData), _pipes(
     _gameData->assetManager.loadTexture("Background", BACKGROUND_FILEPATH);
     _backgroundSprite.setTexture(_gameData->assetManager.getTexture("Background"));
 
+//    _gameData->assetManager.loadSound("Hit sound", HIT_SOUND_FILEPATH);
+//    _gameData->assetManager.loadSound("Score sound", SCORE_SOUND_FILEPATH);
+//    _gameData->assetManager.loadSound("Wing sound", WING_SOUND_FILEPATH);
+//    _hitSound.setBuffer(_gameData->assetManager.getSound("Hit sound"));
+//    _hitSound.setBuffer(_gameData->assetManager.getSound("Score sound"));
+//    _hitSound.setBuffer(_gameData->assetManager.getSound("Wing sound"));
+    _hitSoundBuffer.loadFromFile(HIT_SOUND_FILEPATH);
+    _scoreSoundBuffer.loadFromFile(SCORE_SOUND_FILEPATH);
+    _wingSoundBuffer.loadFromFile(WING_SOUND_FILEPATH);
+    _hitSound.setBuffer(_hitSoundBuffer);
+    _scoreSound.setBuffer(_scoreSoundBuffer);
+    _wingSound.setBuffer(_wingSoundBuffer);
+
     _gameState = GameStates::ready;
 }
 
@@ -45,6 +58,7 @@ void GameState::handleInput()
         {
             _bird.tap();
             _gameState = GameStates::playing;
+            _wingSound.play();
         }
     }
 }
@@ -77,6 +91,7 @@ void GameState::update(float dt)
         if (checkSpritesCollision(_bird.getSprite(), landSprite))
         {
             _gameState = GameStates::gameOver;
+            _hitSound.play();
         }
     }
     auto pipeSprites(_pipes.getSprites());
@@ -85,6 +100,7 @@ void GameState::update(float dt)
         if (checkSpritesCollision(_bird.getSprite(), pipeSprite))
         {
             _gameState = GameStates::gameOver;
+            _hitSound.play();
         }
     }
 
@@ -108,6 +124,7 @@ void GameState::update(float dt)
         {
             _pipes.deleteScorePipe(scorePipeSpriteIt - scorPipesSprites.begin());
             _hud.updateScore(++_score);
+            _scoreSound.play();
         }
     }
 

@@ -24,7 +24,6 @@ private:
     int _gameState;
 
     int _score{};
-    int _highscore{};
     sf::Text _scoreText;
     sf::Text _highscoreText;
     HUD _hud;
@@ -37,4 +36,11 @@ private:
     sf::Clock _clock;
 
     Bird _bird;
+
+    sf::SoundBuffer _hitSoundBuffer;
+    sf::SoundBuffer _scoreSoundBuffer;
+    sf::SoundBuffer _wingSoundBuffer;
+    sf::Sound _hitSound;
+    sf::Sound _scoreSound;
+    sf::Sound _wingSound;
 };

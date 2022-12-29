@@ -48,3 +48,7 @@ enum BirdStates
 //#define GAME_OVER_BODY_FILEPATH "data/resources/Game-Over-Body.png"
 #define GAME_OVER_BODY_FILEPATH "data/resources/game_over_body_without_medal.png"
 #define GAME_OVER_TITLE_FILEPATH "data/resources/Game-Over-Title.png"
+
+#define HIT_SOUND_FILEPATH "data/audio/Hit.wav"
+#define SCORE_SOUND_FILEPATH "data/audio/Point.wav"
+#define WING_SOUND_FILEPATH "data/audio/Wing.wav"
